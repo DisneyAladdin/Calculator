@@ -7,26 +7,26 @@ class DentakuFrame extends JFrame {
 
     JPanel contentPane = new JPanel();
     BorderLayout borderLayout1 = new BorderLayout();
-    JTextField result = new JTextField(""); //計算結果を表示するテキストフィールド
-    double stackedValue = 0.0; //演算子ボタンを押す前にテキストフィールドにあった値
-    boolean isStacked = false; //stackedValueに数値を入力したかどうか
-    boolean afterCalc = false; //演算子ボタンを押した後かどうか
-    String currentOp = ""; //押された演算子ボタンの名前
+    JTextField result = new JTextField(""); 
+    double stackedValue = 0.0; 
+    boolean isStacked = false; 
+    boolean afterCalc = false; 
+    String currentOp = ""; 
 
-    //フレームのビルド
+    //フレーム
     public DentakuFrame() {
         contentPane.setLayout(borderLayout1);
         this.setSize(new Dimension(250, 300));
         this.setTitle("Calculator");
         this.setContentPane(contentPane);
 
-        contentPane.add(result, BorderLayout.NORTH); //テキストフィールドを配置
+        contentPane.add(result, BorderLayout.NORTH); 
 
-        JPanel keyPanel = new JPanel(); //ボタンを配置するパネルを用意
-        keyPanel.setLayout(new GridLayout(4, 4)); //4行4列のGridLayoutにする
+        JPanel keyPanel = new JPanel(); 
+        keyPanel.setLayout(new GridLayout(4, 4)); 
         contentPane.add(keyPanel, BorderLayout.CENTER);
 
-        keyPanel.add(new NumberButton("7"), 0); //ボタンをレイアウトにはめこんでいく
+        keyPanel.add(new NumberButton("7"), 0); 
         keyPanel.add(new NumberButton("8"), 1);
         keyPanel.add(new NumberButton("9"), 2);
         keyPanel.add(new CalcButton("÷"), 3);
@@ -47,17 +47,17 @@ class DentakuFrame extends JFrame {
         this.setVisible(true);
     }
 
-    /* テキストフィールドに引数の文字列をつなげる */
+    
     public void appendResult(String c) {
-        if (!afterCalc) //演算子ボタンを押した直後でないなら
-            result.setText(result.getText() + c); //押したボタンの名前をつなげる
+        if (!afterCalc) 
+            result.setText(result.getText() + c);
         else {
-            result.setText(c); //押したボタンの文字列だけを設定する（いったんクリアしたかに見える）
+            result.setText(c);
             afterCalc = false;
         }
     }
 
-    /* 数字を入力するボタンの定義 */
+    
     public class NumberButton extends JButton implements ActionListener {
         private static final long serialVersionUID = 1L;
 
@@ -85,7 +85,7 @@ class DentakuFrame extends JFrame {
             if (isStacked) { //以前に演算子ボタンが押されたのなら計算結果を出す
                 double resultValue = (Double.valueOf(result.getText()))
                         .doubleValue();
-                if (currentOp.equals("＋")) //演算子に応じて計算する
+                if (currentOp.equals("＋")) 
                     stackedValue += resultValue;
                 else if (currentOp.equals("－"))
                     stackedValue -= resultValue;
@@ -95,7 +95,7 @@ class DentakuFrame extends JFrame {
                     stackedValue /= resultValue;
                 result.setText(String.valueOf(stackedValue)); //計算結果をテキストフィールドに設定
             }
-            currentOp = this.getText(); //ボタン名から押されたボタンの演算子を取り出す
+            currentOp = this.getText(); 
             stackedValue = (Double.valueOf(result.getText())).doubleValue();
             afterCalc = true;
             if (currentOp.equals("＝"))
